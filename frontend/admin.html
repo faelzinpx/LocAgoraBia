@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Admin • LocAgora</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --green:#2dff00;
+  --bg:#050505;
+  --card:#0e0e0e;
+  --text:#fff;
+  --danger:#ff3b3b;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:var(--bg);color:var(--text);min-height:100vh}
+
+/* LOGIN */
+.login{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#0f172a,#020617);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.login-box{
+  background:var(--card);
+  padding:40px;
+  border-radius:18px;
+  width:340px;
+  text-align:center;
+  box-shadow:0 0 60px rgba(45,255,0,.15);
+}
+
+.login-box h2{margin-bottom:25px;font-weight:800}
+
+.login-box input{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:none;
+  margin-bottom:20px;
+  background:#020617;
+  color:#fff;
+}
+
+.login-box button{
+  width:100%;
+  padding:14px;
+  border-radius:30px;
+  border:none;
+  background:var(--green);
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* PAINEL */
+.admin{display:none}
+
+header{
+  height:70px;
+  background:#000;
+  border-bottom:1px solid #111;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 40px;
+}
+
+header button{
+  background:var(--danger);
+  border:none;
+  padding:10px 22px;
+  border-radius:30px;
+  font-weight:700;
+  color:#fff;
+  cursor:pointer;
+}
+
+.container{
+  max-width:1200px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+/* FORM */
+.form-box{
+  background:var(--card);
+  padding:30px;
+  border-radius:18px;
+  margin-bottom:40px;
+}
+
+form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+form input, form select{
+  padding:14px;
+  border-radius:12px;
+  border:none;
+  background:#020617;
+  color:#fff;
+}
+
+form button{
+  grid-column:span 2;
+  background:var(--green);
+  border:none;
+  padding:14px;
+  border-radius:30px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* LISTA */
+.lista{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:25px;
+}
+
+.card{
+  background:#000;
+  border-radius:18px;
+  overflow:hidden;
+}
+
+.card img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+}
+
+.card-body{padding:15px}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+
+.actions button{
+  flex:1;
+  padding:8px;
+  border-radius:20px;
+  border:none;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.edit{background:#2563eb;color:#fff}
+.del{background:var(--danger);color:#fff}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-box{
+  background:var(--card);
+  padding:30px;
+  border-radius:18px;
+  width:360px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="login" id="login">
+  <div class="login-box">
+    <h2>Área Administrativa</h2>
+    <input type="password" id="senha" placeholder="Senha">
+    <!-- 🔥 AQUI ESTÁ A CORREÇÃO -->
+    <button type="button" onclick="login()">Entrar</button>
+  </div>
+</div>
+
+<!-- PAINEL -->
+<div class="admin" id="admin">
+
+<header>
+  <h2>LocAgora • Admin</h2>
+  <button type="button" onclick="sair()">Sair</button>
+</header>
+
+<div class="container">
+
+<div class="form-box">
+<h3>Adicionar Moto</h3>
+<form id="formMoto">
+  <input name="nome" placeholder="Nome da moto" required>
+
+  <select name="estado">
+    <option>0Km</option>
+    <option>Seminovo</option>
+  </select>
+
+  <select name="regiao">
+    <option>Belo Horizonte</option>
+    <option>Uberlandia</option>
+    <option>Brasilia</option>
+    <option>Rio de Janeiro</option>
+    <option>Cuiaba</option>
+    <option>Curitiba</option>
+    <option>Florianopolis</option>
+    <option>Fortaleza</option>
+    <option>Goiania</option>
+    <option>Joao Pessoa</option>
+    <option>Joinville</option>
+    <option>Maceio</option>
+    <option>Porto Alegre</option>
+    <option>Recife</option>
+    <option>Salvador</option>
+    <option>Sao Luis</option>
+    <option>Teresina</option>
+    <option>Campo Grande</option>
+  </select>
+
+  <input type="file" name="imagem" required>
+  <button type="submit">Salvar Moto</button>
+</form>
+</div>
+
+<div class="lista" id="lista"></div>
+</div>
+</div>
+
+<!-- MODAL EDIT -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h3>Editar Moto</h3>
+    <form id="editForm">
+      <input name="nome" required>
+      <select name="estado">
+        <option>0Km</option>
+        <option>Seminovo</option>
+      </select>
+      <input name="regiao" required>
+      <input type="file" name="imagem">
+      <button type="submit">Salvar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+let editId=null;
+
+async function login(){
+  const senha=document.getElementById('senha').value;
+
+  const res=await fetch('/admin/login',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({senha})
+  });
+
+  const data=await res.json();
+
+  if(data.ok){
+    document.getElementById('login').style.display='none';
+    document.getElementById('admin').style.display='block';
+    carregar();
+  }else{
+    alert('Senha incorreta');
+  }
+}
+
+function sair(){
+  location.href='/';
+}
+
+async function carregar(){
+  const res=await fetch('/api/motos');
+  const motos=await res.json();
+  lista.innerHTML='';
+  motos.forEach(m=>{
+    lista.innerHTML+=`
+      <div class="card">
+        <img src="${m.imagem}">
+        <div class="card-body">
+          <b>${m.nome}</b>
+          <p>${m.estado} • ${m.regiao}</p>
+          <div class="actions">
+            <button class="edit" onclick="editar(${m.id},'${m.nome}','${m.estado}','${m.regiao}')">Editar</button>
+            <button class="del" onclick="del(${m.id})">Excluir</button>
+          </div>
+        </div>
+      </div>`;
+  });
+}
+
+function editar(id,nome,estado,regiao){
+  editId=id;
+  modal.style.display='flex';
+  editForm.nome.value=nome;
+  editForm.estado.value=estado;
+  editForm.regiao.value=regiao;
+}
+
+async function del(id){
+  if(!confirm('Excluir moto?'))return;
+  await fetch('/api/motos/'+id,{method:'DELETE'});
+  carregar();
+}
+
+formMoto.onsubmit=async e=>{
+  e.preventDefault();
+  await fetch('/api/motos',{method:'POST',body:new FormData(formMoto)});
+  formMoto.reset();
+  carregar();
+}
+
+editForm.onsubmit=async e=>{
+  e.preventDefault();
+  await fetch('/api/motos/'+editId,{method:'PUT',body:new FormData(editForm)});
+  modal.style.display='none';
+  carregar();
+}
+</script>
+
+</body>
+</html>
