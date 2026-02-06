@@ -486,4 +486,36 @@ header.scrolled {
   .cta h2 {
     font-size: 36px;
   }
+  /* ===== VER MOTOS AO LADO DA LOGO (MOBILE) ===== */
+.logo-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ver-motos {
+  font-size: 14px;
+  font-weight: 700;
+  color: #00e5ff; /* azul neon */
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 229, 255, 0.6);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.6);
+  transition: all 0.25s ease;
+}
+
+.ver-motos:hover {
+  background: rgba(0, 229, 255, 0.15);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.9);
+}
+
+/* Ajuste fino só no mobile */
+@media (max-width: 768px) {
+  .ver-motos {
+    font-size: 13px;
+    padding: 5px 12px;
+  }
+}
+
 }
