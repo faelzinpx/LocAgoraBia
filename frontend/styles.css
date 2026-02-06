@@ -466,12 +466,43 @@ header.scrolled {
   .hero h1 {
     font-size: 40px;
   }
+  
+  /* Header mobile melhorado */
+  .header-container {
+    padding: 0 20px;
+    justify-content: space-between;
+  }
+  
+  .logo-wrapper {
+    position: relative;
+    left: 0;
+    transform: none;
+  }
+  
+  .logo-img {
+    height: 32px;
+  }
+  
   .nav-desktop {
-    display: none !important;
+    display: flex !important;
+    gap: 8px;
+    flex-wrap: wrap;
   }
+  
+  .nav-desktop a {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+  
+  .nav-desktop .btn-primary {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  
   .mobile-menu {
-    display: flex;
+    display: none;
   }
+  
   .about-container {
     grid-template-columns: 1fr;
   }
@@ -486,36 +517,4 @@ header.scrolled {
   .cta h2 {
     font-size: 36px;
   }
-  /* ===== VER MOTOS AO LADO DA LOGO (MOBILE) ===== */
-.logo-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.ver-motos {
-  font-size: 14px;
-  font-weight: 700;
-  color: #00e5ff; /* azul neon */
-  text-decoration: none;
-  padding: 6px 14px;
-  border-radius: 20px;
-  border: 1px solid rgba(0, 229, 255, 0.6);
-  box-shadow: 0 0 12px rgba(0, 229, 255, 0.6);
-  transition: all 0.25s ease;
-}
-
-.ver-motos:hover {
-  background: rgba(0, 229, 255, 0.15);
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.9);
-}
-
-/* Ajuste fino só no mobile */
-@media (max-width: 768px) {
-  .ver-motos {
-    font-size: 13px;
-    padding: 5px 12px;
-  }
-}
-
 }
