@@ -164,6 +164,7 @@ def admin_login():
         return jsonify({'ok': True})
 
     return jsonify({'ok': False})
+app.secret_key = os.environ.get("SECRET_KEY")
 
 
 # ---------- START ----------
