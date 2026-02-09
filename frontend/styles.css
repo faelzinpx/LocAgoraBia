@@ -178,16 +178,40 @@ header.scrolled {
 }
 .btn-primary {
   background: linear-gradient(135deg, #00e5ff, #00bcd4);
-  color: #000000; /* TEXTO PRETO */
+  color: #000000;
   font-weight: 600;
   padding: 10px 22px;
   border-radius: 999px;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
 }
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
 .btn-primary:hover {
   background: linear-gradient(135deg, #33edff, #26d5e8);
-  color: #000000; /* continua preto */
-  transform: translateY(-1px);
+  color: #000000;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 40px rgba(0, 229, 255, 0.8),
+              0 0 60px rgba(0, 229, 255, 0.4);
 }
 .mobile-menu {
   display: none;
@@ -242,11 +266,52 @@ header.scrolled {
   letter-spacing: -2px;
 }
 .hero h1 .highlight {
-  background: linear-gradient(90deg, #00e5ff 0%, #00bcd4 100%);
+  background: linear-gradient(90deg, #00e5ff 0%, #00bcd4 50%, #00e5ff 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
+  animation: gradientShift 3s ease infinite;
+  filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.6)) 
+          drop-shadow(0 0 40px rgba(0, 229, 255, 0.4))
+          drop-shadow(0 0 60px rgba(0, 229, 255, 0.2));
+  position: relative;
+  display: inline-block;
+}
+
+.go-logo {
+  display: inline-block;
+  height: 0.9em;
+  width: auto;
+  vertical-align: middle;
+  margin: 0 0.05em;
+  filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.8)) 
+          drop-shadow(0 0 40px rgba(0, 229, 255, 0.5));
+  animation: logoFloat 3s ease-in-out infinite;
+  position: relative;
+  top: -0.05em;
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.8)) 
+            drop-shadow(0 0 40px rgba(0, 229, 255, 0.5));
+  }
+  50% {
+    transform: translateY(-5px) scale(1.05);
+    filter: drop-shadow(0 0 30px rgba(0, 229, 255, 1)) 
+            drop-shadow(0 0 60px rgba(0, 229, 255, 0.7));
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
 }
 .hero p {
   max-width: 800px;
@@ -278,6 +343,21 @@ header.scrolled {
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 30px;
+  position: relative;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.4),
+              inset 0 0 15px rgba(0, 229, 255, 0.1);
+  animation: borderGlow 2s ease-in-out infinite;
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.4),
+                inset 0 0 15px rgba(0, 229, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(0, 229, 255, 0.6),
+                inset 0 0 20px rgba(0, 229, 255, 0.2);
+  }
 }
 .about h2 {
   font-size: 48px;
@@ -304,6 +384,20 @@ header.scrolled {
   font-size: 56px;
   font-weight: 700;
   color: #00e5ff;
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(0, 229, 255, 0.6),
+                 0 0 40px rgba(0, 229, 255, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 30px rgba(0, 229, 255, 0.8),
+                 0 0 60px rgba(0, 229, 255, 0.5),
+                 0 0 80px rgba(0, 229, 255, 0.3);
+  }
 }
 .stat-label {
   font-size: 14px;
@@ -315,11 +409,45 @@ header.scrolled {
   height: 600px;
   border-radius: 20px;
   overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 50px rgba(0, 229, 255, 0.2);
+  transition: all 0.4s ease;
 }
+
+.about-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(0, 229, 255, 0.15) 0%, 
+    transparent 50%,
+    rgba(0, 188, 212, 0.15) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.about-image:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 70px rgba(0, 229, 255, 0.4);
+}
+
+.about-image:hover::before {
+  opacity: 1;
+}
+
 .about-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.about-image:hover img {
+  transform: scale(1.05);
 } /* Consultant Section */
 .consultant {
   padding: 100px 40px;
@@ -334,27 +462,106 @@ header.scrolled {
   grid-template-columns: 400px 1fr;
   gap: 60px;
   align-items: center;
-  background: rgba(10, 26, 26, 0.5);
+  background: rgba(0, 20, 30, 0.4);
   padding: 60px;
   border-radius: 30px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+              0 0 80px rgba(0, 229, 255, 0.1),
+              inset 0 0 60px rgba(0, 229, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.consultant-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, 
+    transparent 30%, 
+    rgba(0, 229, 255, 0.05) 50%, 
+    transparent 70%);
+  animation: shimmer 6s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 .consultant-image {
   width: 100%;
   height: 500px;
   border-radius: 20px;
   overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 229, 255, 0.3);
+  transition: all 0.4s ease;
 }
+
+.consultant-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(0, 229, 255, 0.1) 0%, 
+    transparent 50%,
+    rgba(0, 188, 212, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.consultant-image:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 60px rgba(0, 229, 255, 0.5);
+}
+
+.consultant-image:hover::after {
+  opacity: 1;
+}
+
 .consultant-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.consultant-image:hover img {
+  transform: scale(1.05);
 }
 .quote-icon {
   font-size: 48px;
   color: #00e5ff;
   margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+  animation: float 3s ease-in-out infinite;
+  display: inline-block;
 }
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.consultant-content {
+  position: relative;
+  z-index: 1;
+}
+
 .consultant-content h3 {
   font-size: 20px;
   line-height: 1.6;
@@ -378,6 +585,17 @@ header.scrolled {
   color: #00e5ff;
   font-weight: bold;
   font-size: 20px;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+  animation: checkPulse 2s ease-in-out infinite;
+}
+
+@keyframes checkPulse {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(0, 229, 255, 1);
+  }
 }
 .consultant-name {
   font-size: 28px;
@@ -426,6 +644,42 @@ header.scrolled {
   justify-content: center;
   margin: 0 auto 30px;
   font-size: 36px;
+  position: relative;
+  animation: iconSpin 4s linear infinite;
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.5),
+              inset 0 0 20px rgba(0, 229, 255, 0.2);
+}
+
+.cta-icon::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #00e5ff;
+  border-right-color: #00e5ff;
+  animation: iconRotate 2s linear infinite;
+}
+
+@keyframes iconSpin {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(0, 229, 255, 0.5),
+                inset 0 0 20px rgba(0, 229, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(0, 229, 255, 0.8),
+                inset 0 0 30px rgba(0, 229, 255, 0.4);
+  }
+}
+
+@keyframes iconRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 .cta h2 {
   font-size: 56px;
@@ -465,6 +719,10 @@ header.scrolled {
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 40px;
+  }
+  
+  .go-logo {
+    height: 0.85em;
   }
   
   /* Header mobile melhorado */
