@@ -186,7 +186,6 @@ form button{
   <div class="login-box">
     <h2>Área Administrativa</h2>
     <input type="password" id="senha" placeholder="Senha">
-    <!-- 🔥 AQUI ESTÁ A CORREÇÃO -->
     <button type="button" onclick="login()">Entrar</button>
   </div>
 </div>
@@ -207,29 +206,11 @@ form button{
   <input name="nome" placeholder="Nome da moto" required>
 
   <select name="estado">
-    <option>0Km</option>
-    <option>Seminovo</option>
+    <option value="0Km/Seminovo">0Km / Seminovo</option>
   </select>
 
   <select name="regiao">
-    <option>Belo Horizonte</option>
-    <option>Uberlandia</option>
-    <option>Brasilia</option>
-    <option>Rio de Janeiro</option>
-    <option>Cuiaba</option>
-    <option>Curitiba</option>
-    <option>Florianopolis</option>
-    <option>Fortaleza</option>
-    <option>Goiania</option>
-    <option>Joao Pessoa</option>
-    <option>Joinville</option>
-    <option>Maceio</option>
-    <option>Porto Alegre</option>
-    <option>Recife</option>
-    <option>Salvador</option>
-    <option>Sao Luis</option>
-    <option>Teresina</option>
-    <option>Campo Grande</option>
+    <option>Consulte sua região</option>
   </select>
 
   <input type="file" name="imagem" required>
@@ -247,11 +228,12 @@ form button{
     <h3>Editar Moto</h3>
     <form id="editForm">
       <input name="nome" required>
+
       <select name="estado">
-        <option>0Km</option>
-        <option>Seminovo</option>
+        <option value="0Km/Seminovo">0Km / Seminovo</option>
       </select>
-      <input name="regiao" required>
+
+      <input name="regiao" value="Consulte sua região" required>
       <input type="file" name="imagem">
       <button type="submit">Salvar</button>
     </form>
@@ -260,6 +242,10 @@ form button{
 
 <script>
 let editId=null;
+const lista=document.getElementById('lista');
+const modal=document.getElementById('modal');
+const formMoto=document.getElementById('formMoto');
+const editForm=document.getElementById('editForm');
 
 async function login(){
   const senha=document.getElementById('senha').value;
