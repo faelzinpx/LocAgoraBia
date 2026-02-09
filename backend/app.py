@@ -43,6 +43,7 @@ def seed_motos():
         "DK 150",
         "DK 160",
         "SHI 175 Carburada ",
+        "SHI 175 Injetada ",
         "NK 150",
         "NH 190",
         "Crosser 150",
@@ -62,7 +63,7 @@ def seed_motos():
                 'INSERT INTO motos (nome, estado, regiao, imagem) VALUES (?,?,?,?)',
                 (
                     nome,
-                    '0Km',
+                    '0Km/Seminovo',
                     'Consulte sua região',
                     '/img/foto.jpg'  # imagem padrão
                 )
