@@ -609,6 +609,36 @@ header.scrolled {
   margin-bottom: 30px;
   font-weight: 600;
 }
+.btn-instagram {
+  background: linear-gradient(135deg, #833AB4, #C13584, #E1306C, #F56040, #FCAF45);
+  color: #fff;
+  padding: 15px 40px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s;
+  box-shadow: 0 0 20px rgba(225, 48, 108, 0.45);
+  margin-bottom: 15px;
+  margin-right: 15px;
+}
+
+.btn-instagram i {
+  font-size: 24px;
+}
+
+.btn-instagram:hover {
+  background: linear-gradient(135deg, #9b4ac9, #d63f96, #ff3d7f, #ff6b52, #ffc057);
+  transform: scale(1.05);
+  box-shadow: 0 0 35px rgba(225, 48, 108, 0.8);
+}
+
+.btn-instagram:hover i {
+  animation: shake 0.5s ease;
+}
+
 .btn-whatsapp {
   background: linear-gradient(135deg, #00e5ff, #00bcd4);
   color: #000;
@@ -622,10 +652,25 @@ header.scrolled {
   transition: all 0.3s;
   box-shadow: 0 0 20px rgba(0, 229, 255, 0.45);
 }
+
+.btn-whatsapp i {
+  font-size: 24px;
+}
+
 .btn-whatsapp:hover {
   background: linear-gradient(135deg, #33edff, #26d5e8);
   transform: scale(1.05);
   box-shadow: 0 0 35px rgba(0, 229, 255, 0.8);
+}
+
+.btn-whatsapp:hover i {
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
 } /* CTA Section */
 .cta {
   padding: 100px 40px;
